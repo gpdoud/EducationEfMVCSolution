@@ -14,7 +14,17 @@ namespace EducationEfMVC.Controllers
     {
         private EducationEfMVCContext db = new EducationEfMVCContext();
 
+		public ActionResult Grade(int? id) {
+			return View(id);
+		}
+
+		// GET: Students/Print/5
+		public ActionResult Print(int? id) {
+			return View(id);
+		}
+
         // GET: Students
+		[Route("Fred")]
         public ActionResult Index()
         {
             return View(db.Students.ToList());
