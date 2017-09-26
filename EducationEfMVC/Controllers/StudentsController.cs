@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using EducationEfMVC.Models;
+using EducationEfMVC.Utility;
 
 namespace EducationEfMVC.Controllers
 {
@@ -15,7 +16,17 @@ namespace EducationEfMVC.Controllers
         private EducationEfMVCContext db = new EducationEfMVCContext();
 
 		public ActionResult List() {
-			return Json(db.Students.ToList(), JsonRequestBehavior.AllowGet);
+			return new JsonNetResult { Data = db.Students.ToList() };
+		}
+		public ActionResult Get(int? id) {
+			if (id == null) {
+				return Json(new Msg { Result = "Failed", Message = "ID is null" });
+			}
+			Student student = db.Students.Find(id);
+			if(student == null) {
+				return Json(new Msg { Result = "Failed", Message = $"Student {id} not found" });
+			}
+			return new JsonNetResult { Data = student };
 		}
 
 		public ActionResult Grade(int? id) {
