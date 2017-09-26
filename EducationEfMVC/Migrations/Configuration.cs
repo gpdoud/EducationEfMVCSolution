@@ -10,7 +10,6 @@ namespace EducationEfMVC.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "EducationEfMVC.Models.EducationEfMVCContext";
         }
 
         protected override void Seed(EducationEfMVC.Models.EducationEfMVCContext context)

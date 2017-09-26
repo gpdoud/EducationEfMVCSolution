@@ -7,13 +7,13 @@ namespace EducationEfMVC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class addedphoneandemailtostudent : IMigrationMetadata
+    public sealed partial class Initialization : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addedphoneandemailtostudent));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initialization));
         
         string IMigrationMetadata.Id
         {
-            get { return "201709181548220_added phone and email to student"; }
+            get { return "201709262011171_Initialization"; }
         }
         
         string IMigrationMetadata.Source

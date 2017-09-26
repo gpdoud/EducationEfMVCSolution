@@ -10,125 +10,107 @@ using EducationEfMVC.Models;
 
 namespace EducationEfMVC.Controllers
 {
-    public class StudentsController : Controller
+    public class MajorsController : Controller
     {
         private EducationEfMVCContext db = new EducationEfMVCContext();
 
-		public ActionResult List() {
-			return Json(db.Students.ToList(), JsonRequestBehavior.AllowGet);
-		}
-
-		public ActionResult Grade(int? id) {
-			return View(id);
-		}
-
-		// GET: Students/Print/5
-		public ActionResult Print(int? id) {
-			return View(id);
-		}
-
-        // GET: Students
+        // GET: Majors
         public ActionResult Index()
         {
-			var students = db.Students.ToList();
-			foreach(var student in students) {
-				student.Major = db.Majors.Find(student.MajorId);
-			}
-
-            return View(students);
+            return View(db.Majors.ToList());
         }
 
-        // GET: Students/Details/5
+        // GET: Majors/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            Major major = db.Majors.Find(id);
+            if (major == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(major);
         }
 
-        // GET: Students/Create
+        // GET: Majors/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Students/Create
+        // POST: Majors/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,SAT,GPA,Phone,Email")] Student student)
+        public ActionResult Create([Bind(Include = "Id,Description")] Major major)
         {
             if (ModelState.IsValid)
             {
-                db.Students.Add(student);
+                db.Majors.Add(major);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(student);
+            return View(major);
         }
 
-        // GET: Students/Edit/5
+        // GET: Majors/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            Major major = db.Majors.Find(id);
+            if (major == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(major);
         }
 
-        // POST: Students/Edit/5
+        // POST: Majors/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,SAT,GPA,Phone,Email")] Student student)
+        public ActionResult Edit([Bind(Include = "Id,Description")] Major major)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(student).State = EntityState.Modified;
+                db.Entry(major).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(student);
+            return View(major);
         }
 
-        // GET: Students/Delete/5
+        // GET: Majors/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            Major major = db.Majors.Find(id);
+            if (major == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(major);
         }
 
-        // POST: Students/Delete/5
+        // POST: Majors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Student student = db.Students.Find(id);
-            db.Students.Remove(student);
+            Major major = db.Majors.Find(id);
+            db.Majors.Remove(major);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

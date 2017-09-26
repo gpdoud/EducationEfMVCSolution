@@ -20,5 +20,7 @@ namespace EducationEfMVC.Models
         }
 
 		public System.Data.Entity.DbSet<EducationEfMVC.Models.Student> Students { get; set; }
+
+		public System.Data.Entity.DbSet<EducationEfMVC.Models.Major> Majors { get; set; }
 	}
 }
