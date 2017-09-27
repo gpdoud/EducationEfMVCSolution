@@ -13,7 +13,7 @@ namespace EducationEfMVC.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201709262011171_Initialization"; }
+            get { return "201709271550111_Initialization"; }
         }
         
         string IMigrationMetadata.Source

@@ -45,7 +45,11 @@
             @Html.DisplayFor(modelItem => item.Phone)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Major.Description)
+            @if (item.Major == null) {
+                <span>Undeclared</span>
+            } else {
+                @Html.DisplayFor(modelItem => item.Major.Description)
+            }
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

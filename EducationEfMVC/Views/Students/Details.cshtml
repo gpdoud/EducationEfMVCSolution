@@ -57,6 +57,18 @@
         <dd>
             @Html.DisplayFor(model => model.Email)
         </dd>
+
+        <dt>
+            Major:
+        </dt>
+
+        <dd>
+            @if(Model.Major == null) {
+                <span>Undeclared</span>
+            } else {
+                @Html.DisplayFor(model => model.Major.Description)
+            }
+        </dd>
     </dl>
 </div>
 <p>

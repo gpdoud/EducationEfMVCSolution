@@ -19,5 +19,14 @@ namespace EducationEfMVC.Models {
 		public int? MajorId { get; set; }
 		public Major Major { get; set; }
 
+		public void Copy(Student student) {
+			FirstName = student.FirstName;
+			LastName = student.LastName;
+			SAT = student.SAT;
+			GPA = student.GPA;
+			Phone = student.Phone;
+			Email = student.Email;
+		}
+
 	}
 }

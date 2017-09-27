@@ -28,6 +28,18 @@ namespace EducationEfMVC.Controllers
 			}
 			return new JsonNetResult { Data = student };
 		}
+		public ActionResult Change([Bind(Include = "Id,FirstName,LastName,SAT,GPA,Phone,Email")] Student student) {
+			if(student == null) {
+				return Json(new Msg { Result = "Failed", Message = "Student is null" });
+			}
+			Student studentDb = db.Students.Find(student.Id);
+			if(studentDb == null) {
+				return Json(new Msg { Result = "Failed", Message = $"Student {student.Id} not found" });
+			}
+			studentDb.Copy(student);
+			db.SaveChanges();
+			return Json(new Msg { Result = "Success", Message = $"Change successful!" });
+		}
 
 		public ActionResult Grade(int? id) {
 			return View(id);
@@ -47,6 +59,7 @@ namespace EducationEfMVC.Controllers
 			}
 
             return View(students);
+			// return View(db.Students.ToList());
         }
 
         // GET: Students/Details/5
@@ -61,6 +74,9 @@ namespace EducationEfMVC.Controllers
             {
                 return HttpNotFound();
             }
+			if(student.MajorId != null) {
+				student.Major = db.Majors.Find(student.MajorId);
+			}
             return View(student);
         }
 
