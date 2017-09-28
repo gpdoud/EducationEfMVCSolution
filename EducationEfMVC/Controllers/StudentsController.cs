@@ -25,14 +25,19 @@ namespace EducationEfMVC.Controllers
 		}
 		public ActionResult Get(int? id) {
 			if (id == null) {
-				return Json(new Msg { Result = "Failed", Message = "ID is null" });
+				return Json(new Msg { Result = "Failed", Message = "ID is null" }, 
+					JsonRequestBehavior.AllowGet);
 			}
 			Student student = db.Students.Find(id);
 			if(student == null) {
-				return Json(new Msg { Result = "Failed", Message = $"Student {id} not found" });
+				return Json(new Msg { Result = "Failed", Message = $"Student {id} not found" }, 
+					JsonRequestBehavior.AllowGet);
 			}
 			return new JsonNetResult { Data = student };
 		}
+
+#region MVC Methods
+
 		public ActionResult Change([Bind(Include = "Id,FirstName,LastName,SAT,GPA,Phone,Email")] Student student) {
 			if(student == null) {
 				return Json(new Msg { Result = "Failed", Message = "Student is null" });
@@ -164,8 +169,8 @@ namespace EducationEfMVC.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-        protected override void Dispose(bool disposing)
+#endregion
+		protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
