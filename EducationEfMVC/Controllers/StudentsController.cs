@@ -16,7 +16,12 @@ namespace EducationEfMVC.Controllers
         private EducationEfMVCContext db = new EducationEfMVCContext();
 
 		public ActionResult List() {
-			return new JsonNetResult { Data = db.Students.ToList() };
+			var students = db.Students.ToList();
+			foreach (var student in students) {
+				student.Major = db.Majors.Find(student.MajorId);
+			}
+			return new JsonNetResult { Data = students };
+			//return new JsonNetResult { Data = db.Students.ToList() };
 		}
 		public ActionResult Get(int? id) {
 			if (id == null) {
