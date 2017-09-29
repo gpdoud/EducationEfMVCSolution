@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using EducationEfMVC.Models;
 using EducationEfMVC.Utility;
+using Api = System.Web.Http;
 
 namespace EducationEfMVC.Controllers
 {
@@ -36,7 +37,19 @@ namespace EducationEfMVC.Controllers
 			return new JsonNetResult { Data = student };
 		}
 
-#region MVC Methods
+		public ActionResult Add([Bind(Include = "Id,FirstName,LastName,SAT,GPA,Phone,Email,MajorId")] Student student) {
+			if (ModelState.IsValid) {
+				db.Students.Add(student);
+				db.SaveChanges();
+				return Json(new Msg { Result = "Success", Message = "Add Successful!" }, 
+					JsonRequestBehavior.AllowGet);
+			} else {
+				return Json(new Msg { Result = "Failed", Message = "Model-state dictionary is invalid." },
+					JsonRequestBehavior.AllowGet);
+			}
+		}
+
+		#region MVC Methods
 
 		public ActionResult Change([Bind(Include = "Id,FirstName,LastName,SAT,GPA,Phone,Email")] Student student) {
 			if(student == null) {
